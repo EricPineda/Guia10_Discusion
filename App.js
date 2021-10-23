@@ -242,6 +242,7 @@ class PaginaDetalle extends React.Component {
     correo: '',
     tipo: '',
     intereses:'',
+    id:'',
   }
   static navigationOptions = {
     title: 'Editar cliente',
@@ -256,11 +257,12 @@ class PaginaDetalle extends React.Component {
   Actualizar() {
 
     fetch('https://apireactnativedps.000webhostapp.com/apicartera.php?comando=editar&nombre=' + this.state.nombre
-      + '&descripcion=' + this.state.descripcion
-      + '&cantidad=' + this.state.cantidad
-      + '&preciodecosto=' + this.state.preciodecosto
-      + '&preciodeventa=' + this.state.preciodeventa
-      + '&fotografia=' + this.state.fotografia
+      + '&dirpostal=' + this.state.dirpostal
+      + '&dirtrabajo=' + this.state.dirtrabajo
+      + '&telefono=' + this.state.telefono
+      + '&correo=' + this.state.correo
+      + '&tipo=' + this.state.tipo 
+      + '&intereses=' + this.state.intereses
       + '&id=' + this.state.id, {
       method: 'GET'
     })
@@ -346,7 +348,7 @@ class PaginaDetalle extends React.Component {
             <NavigationEvents
               onWillFocus={() => {
                 // Do your things here
-                console.log("Entro aqui" + navigation.getParam('nombre'));
+                console.log("Entro aqui" + navigation.getParam('id'));
                 this.setState({
                   nombre: navigation.getParam('nombre'),
 
