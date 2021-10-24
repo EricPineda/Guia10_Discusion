@@ -1,44 +1,57 @@
 import * as React from 'react';
 import {
-  SafeAreaView, Button, View, Text,
-  Image, TouchableOpacity, Keyboard, Alert, FlatList, StyleSheet, ScrollView, Picker
-} from
-  'react-native';
+  SafeAreaView,
+  Button,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Keyboard,
+  Alert,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  Picker,
+} from 'react-native';
 import { createAppContainer, NavigationEvents } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Card, ListItem } from 'react-native-elements'
-class PantallaInicio extends React.Component {
+import { Card, ListItem } from 'react-native-elements';
+
+/*class PantallaInicio extends React.Component {
   state = {
     usuario: '',
-    contrasena: ''
-  }
+    contrasena: '',
+  };
   static navigationOptions = {
-    header: null
+    header: null,
   };
   Entrar() {
     if (!!this.state.usuario && !!this.state.contrasena) {
-      fetch('https://apireactnativedps.000webhostapp.com/apiusuario.php?comando=autenticar&usuario=' + this.state.usuario + '&contrasena=' + this.state.contrasena, {
-        method: 'GET'
-      })
+      fetch(
+        'https://apireactnativedps.000webhostapp.com/apiusuario.php?comando=autenticar&usuario=' +
+          this.state.usuario +
+          '&contrasena=' +
+          this.state.contrasena,
+        {
+          method: 'GET',
+        }
+      )
         .then((response) => response.json())
         .then((responseJson) => {
           console.log(responseJson);
           const encontrado = responseJson.encontrado;
           // Alert("Mensaje="+mensaje);
           if (encontrado == 'si') {
-            this.props.navigation.navigate('ListarProductos')
-          }
-          else {
+            this.props.navigation.navigate('ListarProductos');
+          } else {
             Alert.alert(
               'Usuario',
               'No encontrado!!',
-              [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-              ],
+              [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
               { cancelable: false }
-            )
+            );
           }
         })
         .catch((error) => {
@@ -46,9 +59,7 @@ class PantallaInicio extends React.Component {
           Alert.alert(
             'Aviso',
             'Error de Internet!!',
-            [
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ],
+            [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
             { cancelable: false }
           );
         });
@@ -56,75 +67,68 @@ class PantallaInicio extends React.Component {
       Alert.alert(
         'Aviso',
         'No introdujo datos',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
         { cancelable: false }
       );
-
     }
   }
   render() {
     return (
       <View style={{ flex: 1, padding: 10 }}>
-
-        <Text
-          style={{ fontSize: 34, marginTop: 25, alignSelf: 'center' }}>Bienvenidos</Text>
-      
+        <Text style={{ fontSize: 34, marginTop: 25, alignSelf: 'center' }}>
+          Bienvenidos
+        </Text>
 
         <View style={{ marginLeft: 10, marginRight: 10 }}>
           <Input
-            placeholder='USUARIO'
+            placeholder="USUARIO"
             onChangeText={(text) => this.setState({ usuario: text })}
-            rightIcon={
-              <Icon
-                name='user'
-                size={24}
-                color='black'
-              />
-            }
+            rightIcon={<Icon name="user" size={24} color="black" />}
           />
           <Input
-            placeholder='CONTRASEÑA'
+            placeholder="CONTRASEÑA"
             onChangeText={(text) => this.setState({ contrasena: text })}
             secureTextEntry={true}
-            rightIcon={
-              <Icon
-                name='lock'
-                size={24}
-                color='black'
-              />
-            }
+            rightIcon={<Icon name="lock" size={24} color="black" />}
           />
         </View>
         <TouchableOpacity
           style={{
-            height: 50, backgroundColor: 'red',
-            marginTop: 15, borderRadius: 5, justifyContent:
-              'center', marginLeft: 20, marginRight: 20
+            height: 50,
+            backgroundColor: 'red',
+            marginTop: 15,
+            borderRadius: 5,
+            justifyContent: 'center',
+            marginLeft: 20,
+            marginRight: 20,
           }}
-          onPress={() => { this.Entrar() }}
-        >
-          <Text style={{
-            color: 'white', fontSize: 22, textAlign: 'center',
-            textAlignVertical: 'center'
-          }}>Entrar</Text>
+          onPress={() => {
+            this.Entrar();
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 22,
+              textAlign: 'center',
+              textAlignVertical: 'center',
+            }}>
+            Entrar
+          </Text>
         </TouchableOpacity>
       </View>
     );
   }
-}
-
+}*/
 
 class listarProductos extends React.Component {
   state = {
     elementos: [],
-    total: 0
-  }
+    total: 0,
+  };
   static navigationOptions = {
     title: 'Clientes',
     headerStyle: {
-      backgroundColor: '#f4511e',
+      backgroundColor: '#1e8df4',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -134,9 +138,12 @@ class listarProductos extends React.Component {
 
   cargarRegistros() {
     console.log('Prueba');
-    fetch('https://apireactnativedps.000webhostapp.com/apicartera.php?comando=listar', {
-      method: 'GET'
-    })
+    fetch(
+      'https://apireactnativedps.000webhostapp.com/apicartera.php?comando=listar',
+      {
+        method: 'GET',
+      }
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
@@ -144,8 +151,8 @@ class listarProductos extends React.Component {
         console.log(listado);
         this.setState({
           elementos: listado,
-          total: listado.length
-        })
+          total: listado.length,
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -153,7 +160,7 @@ class listarProductos extends React.Component {
   }
   render() {
     return (
-      <View style={{ flex: 1 }} >
+      <View style={{ flex: 1 }}>
         <NavigationEvents
           onWillFocus={() => {
             // Do your things here
@@ -162,51 +169,83 @@ class listarProductos extends React.Component {
         />
         <Text
           style={{
-            fontSize: 18, textAlign: 'center', height: 40, marginTop: 10, backgroundColor: 'lightgray', textAlignVertical: 'center',
-            borderRadius: 10, marginLeft: 10, marginRight: 10
-          }}>{this.state.total} Clientes </Text>
+            fontSize: 18,
+            textAlign: 'center',
+            height: 40,
+            marginTop: 10,
+            backgroundColor: 'lightgray',
+            textAlignVertical: 'center',
+            borderRadius: 10,
+            marginLeft: 10,
+            marginRight: 10,
+          }}>
+          {this.state.total} Clientes{' '}
+        </Text>
         <FlatList
           data={this.state.elementos}
-          renderItem={({ item }) => <TouchableOpacity
-            key={item.id}
-            //onPress = {() => this.alertItemName(item)}
-            onPress={() =>
-              this.props.navigation.navigate('Detalles', item)}
-          >
-            <View style={{ flexDirection: 'row', marginTop: 15, marginLeft: 2 }}>
-          
-              <View style={{ margin: 5, flex:1, borderWidth:1,borderStyle:'solid',borderColor:'#dedede'}}>
-                <Text style={{ flex: 1, fontSize: 18, textAlign:'center' }}>
-                  {item.nombre}
-                </Text>
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              key={item.id}
+              //onPress = {() => this.alertItemName(item)}
+              onPress={() => this.props.navigation.navigate('Detalles', item)}>
+              <View
+                style={{ flexDirection: 'row', marginTop: 15, marginLeft: 2 }}>
+                <View
+                  style={{
+                    margin: 5,
+                    flex: 1,
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                    borderColor: '#d1d1d1',
+                  }}>
+                  <Text
+                    style={{
+                      flex: 1,
+                      fontSize: 18,
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                      margin: 7,
+                      borderBottomWidth: 1,
+                      borderBottomStyle: 'solid',
+                      borderBottomColor: '#d1d1d1',
+                      paddingBottom: 7,
+                    }}>
+                    {item.nombre}
+                  </Text>
 
-<Text style={{ flex: 1, fontSize: 18,  }}>
-                  Teléfono: {item.telefono}
-                </Text>
+                  <Text
+                    Style={{
+                      borderWidth: 1,
+                      borderTopStyle: 'solid',
+                      borderTopColor: '#d1d1d1',
+                    }}></Text>
 
-                <Text style={{ flex: 1, fontSize: 18 }}>
-               Tipo de cliente:   {item.tipo}
-                </Text>
+                  <Text style={{ flex: 1, fontSize: 18, margin: 7 }}>
+                    Teléfono: {item.telefono}
+                  </Text>
 
-                <Text style={{
-                  flex: 1, fontSize: 16, fontWeight:
-                    'bold',color:'#3ab8de',textAlign:'center'
-                }}>
-                 Ver más
-                </Text>
-                <Text style={{ flex: 1, fontSize: 14 }}>
-                 
-                </Text>
+                  <Text style={{ flex: 1, fontSize: 18, margin: 7 }}>
+                    Tipo de cliente: {item.tipo}
+                  </Text>
+
+                  <Text
+                    style={{
+                      flex: 1,
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      color: '#36c9d1',
+                      textAlign: 'center',
+                      marginTop: 10,
+                    }}>
+                    Ver más
+                  </Text>
+                  <Text style={{ flex: 1, fontSize: 14 }}></Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-          
-  
-          }
-          keyExtractor={item => item.id}
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item.id}
         />
-
-
 
         <TouchableOpacity
           style={{
@@ -219,19 +258,16 @@ class listarProductos extends React.Component {
             bottom: 10,
             right: 10,
             height: 70,
-            backgroundColor: 'red',
+            backgroundColor: '#db1442',
             borderRadius: 100,
-
           }}
-          onPress={() => this.props.navigation.navigate('Agregar')}
-        >
+          onPress={() => this.props.navigation.navigate('Agregar')}>
           <Icon name="plus" size={30} color="white" />
         </TouchableOpacity>
       </View>
     );
   }
 }
-
 
 class PaginaDetalle extends React.Component {
   state = {
@@ -241,13 +277,13 @@ class PaginaDetalle extends React.Component {
     telefono: '',
     correo: '',
     tipo: '',
-    intereses:'',
-    id:'',
-  }
+    intereses: '',
+    id: '',
+  };
   static navigationOptions = {
     title: 'Editar cliente',
     headerStyle: {
-      backgroundColor: '#f4511e',
+      backgroundColor: '#1e8df4',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -255,46 +291,74 @@ class PaginaDetalle extends React.Component {
     },
   };
   Actualizar() {
-
-    fetch('https://apireactnativedps.000webhostapp.com/apicartera.php?comando=editar&nombre=' + this.state.nombre
-      + '&dirpostal=' + this.state.dirpostal
-      + '&dirtrabajo=' + this.state.dirtrabajo
-      + '&telefono=' + this.state.telefono
-      + '&correo=' + this.state.correo
-      + '&tipo=' + this.state.tipo 
-      + '&intereses=' + this.state.intereses
-      + '&id=' + this.state.id, {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        const mensaje = responseJson.mensaje;
-        console.log(mensaje);
-        if (!mensaje)
-          alert("Error al actualizar!");
-        else {
-          alert(mensaje);
-          this.props.navigation.goBack();
+    const tel = /^([6|7]{1}[0-9]{3}\-[0-9]{4})$/;
+    const cor =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (this.state.nombre.length == 0) {
+      alert('No ha ingresado el nombre');
+    } else if (this.state.dirtrabajo.length == 0) {
+      alert('No ha ingresado la dirección de trabajo');
+    } else if (this.state.dirpostal.length == 0) {
+      alert('No ha ingresado la dirección postal');
+    } else if (!tel.test(this.state.telefono)) {
+      alert('Ingrese el teléfono correctamente: XXXX-XXXX');
+    } else if (!cor.test(this.state.correo)) {
+      alert('Ingrese el correo correctamente');
+    } else if (this.state.tipo.length == 0) {
+      alert('No ha ingresado el tipo de cliente');
+    } else {
+      fetch(
+        'https://apireactnativedps.000webhostapp.com/apicartera.php?comando=editar&nombre=' +
+          this.state.nombre +
+          '&dirpostal=' +
+          this.state.dirpostal +
+          '&dirtrabajo=' +
+          this.state.dirtrabajo +
+          '&telefono=' +
+          this.state.telefono +
+          '&correo=' +
+          this.state.correo +
+          '&tipo=' +
+          this.state.tipo +
+          '&intereses=' +
+          this.state.intereses +
+          '&id=' +
+          this.state.id,
+        {
+          method: 'GET',
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Error de Internet!!");
-      });
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          const mensaje = responseJson.mensaje;
+          console.log(mensaje);
+          if (!mensaje) alert('Error al actualizar!');
+          else {
+            alert(mensaje);
+            this.props.navigation.goBack();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Error de Internet!!');
+        });
+    }
   }
   Eliminar() {
-
-    fetch('https://apireactnativedps.000webhostapp.com/apicartera.php?comando=eliminar&id=' + this.state.id, {
-      method: 'GET'
-    })
+    fetch(
+      'https://apireactnativedps.000webhostapp.com/apicartera.php?comando=eliminar&id=' +
+        this.state.id,
+      {
+        method: 'GET',
+      }
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
         const mensaje = responseJson.mensaje;
         console.log(mensaje);
-        if (!mensaje)
-          alert("Error al eliminar!");
+        if (!mensaje) alert('Error al eliminar!');
         else {
           alert(mensaje);
           this.props.navigation.goBack();
@@ -302,7 +366,7 @@ class PaginaDetalle extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-        alert("Error de Internet!!");
+        alert('Error de Internet!!');
       });
   }
   render() {
@@ -312,43 +376,66 @@ class PaginaDetalle extends React.Component {
         <ScrollView style={{ flex: 1 }}>
           <View
             style={{
-              flex: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center'
-              , height: 60
+              flex: 1,
+              flexDirection: 'row',
+              alignContent: 'center',
+              alignItems: 'center',
+              height: 60,
             }}>
             <TouchableOpacity
               style={{
-                flex: 1, height:
-                  40, backgroundColor: 'black', borderRadius: 5, justifyContent:
-                  'center', marginLeft: 5
+                flex: 1,
+                height: 40,
+                backgroundColor: '#f4cd1e',
+                borderRadius: 5,
+                justifyContent: 'center',
+                marginLeft: 5,
               }}
-              onPress={() => { this.Actualizar() }}
-            >
-              <Text style={{
-                color: 'white', fontSize: 22, textAlign: 'center',
-                textAlignVertical: 'center', padding: 3
-              }}>Actualizar</Text>
+              onPress={() => {
+                this.Actualizar();
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 22,
+                  textAlign: 'center',
+                  textAlignVertical: 'center',
+                  padding: 3,
+                }}>
+                Actualizar
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                flex: 1, height:
-                  40, backgroundColor: 'black', borderRadius: 5, justifyContent:
-                  'center', marginLeft: 5, marginRight: 5
+                flex: 1,
+                height: 40,
+                backgroundColor: '#f42c1e',
+                borderRadius: 5,
+                justifyContent: 'center',
+                marginLeft: 5,
+                marginRight: 5,
               }}
-              onPress={() => { this.Eliminar() }}
-            >
-              <Text style={{
-                color: 'white', fontSize: 22, textAlign: 'center',
-                textAlignVertical: 'center', padding: 3
-              }}>Eliminar</Text>
+              onPress={() => {
+                this.Eliminar();
+              }}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 22,
+                  textAlign: 'center',
+                  textAlignVertical: 'center',
+                  padding: 3,
+                }}>
+                Eliminar
+              </Text>
             </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, padding: 20 }}>
-
             <NavigationEvents
               onWillFocus={() => {
                 // Do your things here
-                console.log("Entro aqui" + navigation.getParam('id'));
+                console.log('Entro aqui' + navigation.getParam('id'));
                 this.setState({
                   nombre: navigation.getParam('nombre'),
 
@@ -359,71 +446,85 @@ class PaginaDetalle extends React.Component {
                   correo: navigation.getParam('correo'),
 
                   tipo: navigation.getParam('tipo'),
-                  intereses:navigation.getParam('intereses'),
-                  id: navigation.getParam('id')
+                  intereses: navigation.getParam('intereses'),
+                  id: navigation.getParam('id'),
                 });
               }}
             />
-            
- <Input
- value={this.state.nombre}
-          placeholder='Nombre'
-          onChangeText={(text) => this.setState({ nombre: text })}
-        />
-        <Input
-        value={this.state.dirpostal}
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Dirección postal'
-          onChangeText={(text) => this.setState({ dirpostal: text })}
-        />
-        <Input
-        value={this.state.dirtrabajo}
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Dirección de trabajo'
-          onChangeText={(text) => this.setState({ dirtrabajo: text })}
-        />
-       
-        <Input
-        value={this.state.telefono}
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Teléfono'
-          onChangeText={(text) => this.setState({ telefono: text })}
-        />
-        <Input
-        value={this.state.correo}
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Correo electrónico'
-          onChangeText={(text) => this.setState({ correo: text })}
-        />
+            <Text>Nombre de cliente</Text>
+            <Input
+              maxLength={100}
+              value={this.state.nombre}
+              placeholder="Nombre"
+              onChangeText={(text) => this.setState({ nombre: text })}
+            />
 
-        <View>
+            <Text>Dirección postal</Text>
+            <Input
+              maxLength={100}
+              value={this.state.dirpostal}
+              inputStyle={{ marginTop: 10 }}
+              placeholder="Dirección postal"
+              onChangeText={(text) => this.setState({ dirpostal: text })}
+            />
 
-      <Picker
-        selectedValue={this.state.tipo}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => this.setState({tipo:itemValue})}
-      >
-        <Picker.Item label="Real" value="real" />
-        <Picker.Item label="Potencial" value="potencial" />
-      </Picker>
-    </View>
+            <Text>Dirección de trabajo</Text>
+            <Input
+              maxLength={100}
+              value={this.state.dirtrabajo}
+              inputStyle={{ marginTop: 10 }}
+              placeholder="Dirección de trabajo"
+              onChangeText={(text) => this.setState({ dirtrabajo: text })}
+            />
 
-        <Input
-        value={this.state.intereses}
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Intereses'
-          onChangeText={(text) => this.setState({ intereses: text })}
-        />
+            <Text>Teléfono</Text>
+            <Input
+              maxLength={9}
+              value={this.state.telefono}
+              inputStyle={{ marginTop: 10 }}
+              placeholder="Teléfono"
+              keyboardType="number-pad"
+              onChangeText={(text) => this.setState({ telefono: text })}
+            />
 
+            <Text>Correo electrónico</Text>
+            <Input
+              maxLength={100}
+              value={this.state.correo}
+              inputStyle={{ marginTop: 10 }}
+              placeholder="Correo electrónico"
+              keyboardType="email-address"
+              onChangeText={(text) => this.setState({ correo: text })}
+            />
 
+            <Text>Tipo de cliente</Text>
+            <View Style={{ border: 1, borderColor: '#000' }}>
+              <Picker
+                selectedValue={this.state.tipo}
+                style={{ height: 50 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ tipo: itemValue })
+                }>
+                <Picker.Item label="Real" value="real" />
+                <Picker.Item label="Potencial" value="potencial" />
+              </Picker>
+            </View>
+
+            <Text>Intereses</Text>
+
+            <Input
+              maxLength={500}
+              value={this.state.intereses}
+              inputStyle={{ marginTop: 10 }}
+              placeholder="Intereses (información adicional)"
+              onChangeText={(text) => this.setState({ intereses: text })}
+            />
           </View>
         </ScrollView>
       </View>
-
     );
   }
 }
-
 
 class PaginaAgregar extends React.Component {
   state = {
@@ -433,12 +534,12 @@ class PaginaAgregar extends React.Component {
     telefono: '',
     correo: '',
     tipo: 'real',
-    intereses:'',
-  }
+    intereses: '',
+  };
   static navigationOptions = {
     title: 'Agregar producto',
     headerStyle: {
-      backgroundColor: '#f4511e',
+      backgroundColor: '#1e8df4',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -446,108 +547,150 @@ class PaginaAgregar extends React.Component {
     },
   };
 
- 
   Guardar() {
-
-alert("Error al agregar!");
-    fetch('https://apireactnativedps.000webhostapp.com/apicartera.php?comando=agregar&nombre=' +
-      this.state.nombre
-      + '&dirpostal=' + this.state.dirpostal
-      + '&dirtrabajo=' + this.state.dirtrabajo
-      + '&telefono=' + this.state.telefono
-      + '&correo=' + this.state.correo
-      + '&tipo=' + this.state.tipo 
-      + '&intereses=' + this.state.intereses, {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        const mensaje = responseJson.mensaje;
-        console.log(mensaje);
-        if (!mensaje)
-          alert("Error al agregar!");
-        else {
-          alert(mensaje);
-          this.props.navigation.goBack(); 
+    //alert('Error al agregar!');
+    const tel = /^([6|7]{1}[0-9]{3}\-[0-9]{4})$/;
+    const cor =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (this.state.nombre.length == 0) {
+      alert('No ha ingresado el nombre');
+    } else if (this.state.dirtrabajo.length == 0) {
+      alert('No ha ingresado la dirección de trabajo');
+    } else if (this.state.dirpostal.length == 0) {
+      alert('No ha ingresado la dirección postal');
+    } else if (!tel.test(this.state.telefono)) {
+      alert('Ingrese el teléfono correctamente: XXXX-XXXX');
+    } else if (!cor.test(this.state.correo)) {
+      alert('Ingrese el correo correctamente');
+    } else if (this.state.tipo.length == 0) {
+      alert('No ha ingresado el tipo de cliente');
+    } else {
+      fetch(
+        'https://apireactnativedps.000webhostapp.com/apicartera.php?comando=agregar&nombre=' +
+          this.state.nombre +
+          '&dirpostal=' +
+          this.state.dirpostal +
+          '&dirtrabajo=' +
+          this.state.dirtrabajo +
+          '&telefono=' +
+          this.state.telefono +
+          '&correo=' +
+          this.state.correo +
+          '&tipo=' +
+          this.state.tipo +
+          '&intereses=' +
+          this.state.intereses,
+        {
+          method: 'GET',
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Error de Internet!!");
-      });
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          const mensaje = responseJson.mensaje;
+          console.log(mensaje);
+          if (!mensaje) alert('Error al agregar!');
+          else {
+            alert(mensaje);
+            this.props.navigation.goBack();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Error de Internet!!');
+        });
+    }
   }
 
   render() {
     return (
       <ScrollView>
-      <View style={{ flex: 1, padding: 20 }}>
-        <Input
-          placeholder='Nombre'
-          onChangeText={(text) => this.setState({ nombre: text })}
-        />
-        <Input
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Dirección postal'
-          onChangeText={(text) => this.setState({ dirpostal: text })}
-        />
-        <Input
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Dirección de trabajo'
-          onChangeText={(text) => this.setState({ dirtrabajo: text })}
-        />
-       
-        <Input
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Teléfono'
-          onChangeText={(text) => this.setState({ telefono: text })}
-        />
-        <Input
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Correo electrónico'
-          onChangeText={(text) => this.setState({ correo: text })}
-        />
+        <View style={{ flex: 1, padding: 20 }}>
+          <Input
+            placeholder="Nombre"
+            maxLength={100}
+            onChangeText={(text) => this.setState({ nombre: text })}
+          />
+          <Input
+            inputStyle={{ marginTop: 10 }}
+            placeholder="Dirección postal"
+            maxLength={100}
+            onChangeText={(text) => this.setState({ dirpostal: text })}
+          />
+          <Input
+            inputStyle={{ marginTop: 10 }}
+            placeholder="Dirección de trabajo"
+            maxLength={100}
+            onChangeText={(text) => this.setState({ dirtrabajo: text })}
+          />
 
-        <View>
+          <Input
+            inputStyle={{ marginTop: 10 }}
+            placeholder="Teléfono: XXXX-XXXX"
+            keyboardType="number-pad"
+            maxLength={9}
+            onChangeText={(text) => this.setState({ telefono: text })}
+          />
+          <Input
+            inputStyle={{ marginTop: 10 }}
+            placeholder="Correo electrónico"
+            keyboardType="email-address"
+            maxLength={100}
+            onChangeText={(text) => this.setState({ correo: text })}
+          />
 
-      <Picker
-        selectedValue={this.state.tipo}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => this.setState({tipo:itemValue})}
-      >
-        <Picker.Item label="Real" value="real" />
-        <Picker.Item label="Potencial" value="potencial" />
-      </Picker>
-    </View>
+          <View style={{ margin: 10 }}>
+            <Text>Tipo de cliente</Text>
+            <Picker
+              selectedValue={this.state.tipo}
+              style={{ height: 50 }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ tipo: itemValue })
+              }>
+              <Picker.Item label="Real" value="real" />
+              <Picker.Item label="Potencial" value="potencial" />
+            </Picker>
+          </View>
 
-        <Input
-          inputStyle={{ marginTop: 10 }}
-          placeholder='Intereses'
-          onChangeText={(text) => this.setState({ intereses: text })}
-        />
+          <Input
+            inputStyle={{ marginTop: 10 }}
+            placeholder="Intereses (información adicional)"
+            maxLength={500}
+            onChangeText={(text) => this.setState({ intereses: text })}
+          />
 
-        <TouchableOpacity
-          style={{
-            height: 50, backgroundColor: 'red',
-            marginTop: 15, borderRadius: 5, justifyContent:
-              'center', marginLeft: 20, marginRight: 20
-          }}
-          onPress={() => { this.Guardar() }}
-        >
-          <Text style={{
-            color: 'white', fontSize: 22, textAlign: 'center',
-            textAlignVertical: 'center'
-          }}>Guardar</Text>
-        </TouchableOpacity>
-      </View>
-</ScrollView>
+          <TouchableOpacity
+            style={{
+              height: 50,
+              backgroundColor: '#1ef47b',
+              marginTop: 15,
+              borderRadius: 5,
+              justifyContent: 'center',
+              marginLeft: 20,
+              marginRight: 20,
+            }}
+            onPress={() => {
+              this.Guardar();
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 22,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+              }}>
+              Guardar
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     );
   }
 }
 
 const RootStack = createStackNavigator(
   {
-    Inicio: PantallaInicio,
+    //Inicio: PantallaInicio,
     ListarProductos: listarProductos,
     Detalles: PaginaDetalle,
     Agregar: PaginaAgregar,
